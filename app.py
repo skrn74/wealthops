@@ -17,7 +17,32 @@ with app.app_context():
 
 @app.route("/")
 def dashboard():
-    return render_template("dashboard.html")
+
+    portfolio = Portfolio.query.all()
+
+    total_value = sum(
+        p.quantity * p.current_price for p in portfolio
+    )
+
+    mf_value = sum(
+        p.quantity * p.current_price
+        for p in portfolio
+        if p.asset_type == "Mutual Fund"
+    )
+
+    stock_value = sum(
+        p.quantity * p.current_price
+        for p in portfolio
+        if p.asset_type == "Stock"
+    )
+
+    return render_template(
+        "dashboard.html",
+        portfolio=portfolio,
+        total_value=round(total_value, 2),
+        mf_value=round(mf_value, 2),
+        stock_value=round(stock_value, 2)
+    )
 
 @app.route("/portfolio", methods=["GET", "POST"])
 def portfolio():

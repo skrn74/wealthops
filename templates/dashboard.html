@@ -4,6 +4,29 @@
 
 <h2>Dashboard</h2>
 
-<p>Welcome to WealthOps 🚀</p>
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5>Total Portfolio</h5>
+            <h2>₹ {{ total_value }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5>Mutual Funds</h5>
+            <h2>₹ {{ mf_value }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5>Stocks</h5>
+            <h2>₹ {{ stock_value }}</h2>
+        </div>
+    </div>
+
+</div>
 
 {% endblock %}
