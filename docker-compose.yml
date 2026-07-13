@@ -1,31 +1,32 @@
-version: '3.9'
+version: "3.9"
 
 services:
 
   postgres:
-
     image: postgres:17
-
     container_name: wealthops-postgres
 
-    restart: always
-
     environment:
-
       POSTGRES_DB: wealthops
-
       POSTGRES_USER: wealthuser
-
       POSTGRES_PASSWORD: wealth123
 
     ports:
-
       - "5432:5432"
 
     volumes:
-
       - postgres-data:/var/lib/postgresql/data
 
-volumes:
+  wealthops:
+    build: .
 
+    container_name: wealthops-app
+
+    ports:
+      - "5000:5000"
+
+    depends_on:
+      - postgres
+
+volumes:
   postgres-data:

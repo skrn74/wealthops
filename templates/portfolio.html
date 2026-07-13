@@ -2,8 +2,79 @@
 
 {% block content %}
 
-<h2>Portfolio</h2>
+<h2>Add Portfolio</h2>
 
-<p>Portfolio coming soon...</p>
+<form method="POST" action="/portfolio">
+
+<div class="mb-3">
+<label>Asset Name</label>
+<input class="form-control" name="asset_name">
+</div>
+
+<div class="mb-3">
+<label>Asset Type</label>
+
+<select class="form-control" name="asset_type">
+<option>Mutual Fund</option>
+<option>Stock</option>
+<option>Gold</option>
+</select>
+
+</div>
+
+<div class="mb-3">
+<label>Quantity</label>
+<input class="form-control" name="quantity">
+</div>
+
+<div class="mb-3">
+<label>Average Price</label>
+<input class="form-control" name="average_price">
+</div>
+
+<div class="mb-3">
+<label>Current Price</label>
+<input class="form-control" name="current_price">
+</div>
+
+<button class="btn btn-primary">
+Save
+</button>
+
+</form>
+
+<hr>
+
+<h3>Your Portfolio</h3>
+
+<table class="table table-striped">
+
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Qty</th>
+<th>Avg</th>
+<th>Current</th>
+</tr>
+
+{% for item in portfolio %}
+
+<tr>
+
+<td>{{item.asset_name}}</td>
+
+<td>{{item.asset_type}}</td>
+
+<td>{{item.quantity}}</td>
+
+<td>{{item.average_price}}</td>
+
+<td>{{item.current_price}}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
 
 {% endblock %}
