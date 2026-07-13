@@ -2,30 +2,93 @@
 
 {% block content %}
 
-<h2>Dashboard</h2>
+<div class="container mt-4">
 
-<div class="row">
+    <h2 class="mb-4">Dashboard</h2>
 
-    <div class="col-md-4">
-        <div class="card p-3">
-            <h5>Total Portfolio</h5>
-            <h2>₹ {{ total_value }}</h2>
+    <div class="row">
+
+        <!-- Total Portfolio -->
+        <div class="col-md-3">
+            <div class="card p-3 shadow-sm">
+                <h5>Total Portfolio</h5>
+                <h2>₹ {{ total_value }}</h2>
+            </div>
         </div>
+
+        <!-- Mutual Funds -->
+        <div class="col-md-3">
+            <div class="card p-3 shadow-sm">
+                <h5>Mutual Funds</h5>
+                <h2>₹ {{ mf_value }}</h2>
+            </div>
+        </div>
+
+        <!-- Stocks -->
+        <div class="col-md-3">
+            <div class="card p-3 shadow-sm">
+                <h5>Stocks</h5>
+                <h2>₹ {{ stock_value }}</h2>
+            </div>
+        </div>
+
+        <!-- Holdings -->
+        <div class="col-md-3">
+            <div class="card p-3 shadow-sm">
+                <h5>Holdings</h5>
+                <h2>{{ holdings }}</h2>
+            </div>
+        </div>
+
     </div>
 
-    <div class="col-md-4">
-        <div class="card p-3">
-            <h5>Mutual Funds</h5>
-            <h2>₹ {{ mf_value }}</h2>
-        </div>
+    <hr class="my-4">
+
+    <div class="d-flex justify-content-between align-items-center">
+
+        <h3>Latest Holdings</h3>
+
+        <a href="/portfolio" class="btn btn-primary">
+            + Add Holding
+        </a>
+
     </div>
 
-    <div class="col-md-4">
-        <div class="card p-3">
-            <h5>Stocks</h5>
-            <h2>₹ {{ stock_value }}</h2>
-        </div>
-    </div>
+    <table class="table table-striped table-hover mt-3">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>Asset</th>
+
+                <th>Type</th>
+
+                <th>Current Value</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for item in portfolio %}
+
+            <tr>
+
+                <td>{{ item.asset_name }}</td>
+
+                <td>{{ item.asset_type }}</td>
+
+                <td>₹ {{ item.quantity * item.current_price }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
 
 </div>
 

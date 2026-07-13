@@ -20,6 +20,8 @@ def dashboard():
 
     portfolio = Portfolio.query.all()
 
+    holdings = len(portfolio)
+
     total_value = sum(
         p.quantity * p.current_price for p in portfolio
     )
@@ -39,6 +41,7 @@ def dashboard():
     return render_template(
         "dashboard.html",
         portfolio=portfolio,
+        holdings=holdings,
         total_value=round(total_value, 2),
         mf_value=round(mf_value, 2),
         stock_value=round(stock_value, 2)
