@@ -2,8 +2,57 @@
 
 {% block content %}
 
-<h2>Goals</h2>
+<div class="container mt-4">
 
-<p>Financial Goals coming soon...</p>
+    <h2 class="mb-4">
+        Financial Goals
+    </h2>
+
+    {% for goal in goals %}
+
+    {% set percent=((goal.current/goal.target)*100)|round(0) %}
+
+    <div class="card mb-3 shadow-sm">
+
+        <div class="card-body">
+
+            <h5>{{ goal.name }}</h5>
+
+            <p>
+
+                Target :
+                ₹{{ "{:,.0f}".format(goal.target) }}
+
+                <br>
+
+                Current :
+                ₹{{ "{:,.0f}".format(goal.current) }}
+
+                <br>
+
+                Target Year :
+                {{ goal.year }}
+
+            </p>
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar bg-success"
+                    style="width:{{percent}}%;">
+
+                    {{percent}}%
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
 
 {% endblock %}

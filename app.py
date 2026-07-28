@@ -1,91 +1,36 @@
 from flask import Flask, render_template
-
 from database.database import db
 from flask import request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
+from models.portfolio import Portfolio
+from routes.dashboard import dashboard_bp
+from routes.portfolio import portfolio_bp
+from routes.goals import goals_bp
+from models.transaction import Transaction
+from routes.api import api_bp
+from routes.ai import ai_bp
+from routes.upstox import upstox_bp
 
 app = Flask(__name__)
-
 app.config.from_object("config")
 
 db.init_app(app)
-
-from models.portfolio import Portfolio
 
 with app.app_context():
 
     db.create_all()
 
-@app.route("/")
-def dashboard():
+app.register_blueprint(dashboard_bp)
+app.register_blueprint(portfolio_bp)
+app.register_blueprint(goals_bp)
+app.register_blueprint(api_bp)
+app.register_blueprint(ai_bp)
+app.register_blueprint(upstox_bp)
 
-    portfolio = Portfolio.query.all()
+from config import UPSTOX_CLIENT_ID
 
-    holdings = len(portfolio)
+print("Client ID:", UPSTOX_CLIENT_ID)
 
-    total_value = sum(
-        p.quantity * p.current_price for p in portfolio
-    )
-
-    mf_value = sum(
-        p.quantity * p.current_price
-        for p in portfolio
-        if p.asset_type == "Mutual Fund"
-    )
-
-    stock_value = sum(
-        p.quantity * p.current_price
-        for p in portfolio
-        if p.asset_type == "Stock"
-    )
-
-    return render_template(
-        "dashboard.html",
-        portfolio=portfolio,
-        holdings=holdings,
-        total_value=round(total_value, 2),
-        mf_value=round(mf_value, 2),
-        stock_value=round(stock_value, 2)
-    )
-
-@app.route("/portfolio", methods=["GET", "POST"])
-def portfolio():
-
-    if request.method == "POST":
-
-        portfolio = Portfolio(
-
-            asset_name=request.form["asset_name"],
-
-            asset_type=request.form["asset_type"],
-
-            quantity=float(request.form["quantity"]),
-
-            average_price=float(request.form["average_price"]),
-
-            current_price=float(request.form["current_price"])
-
-        )
-
-        db.session.add(portfolio)
-
-        db.session.commit()
-
-        return redirect("/portfolio")
-
-    portfolio = Portfolio.query.all()
-
-    return render_template(
-        "portfolio.html",
-        portfolio=portfolio
-    )
-
-@app.route("/goals")
-def goals():
-    return render_template("goals.html")
-
-@app.route("/ai")
-def ai():
-    return "<h2>AI Advisor Coming Soon 🤖</h2>"
 
 if __name__ == "__main__":
     app.run(

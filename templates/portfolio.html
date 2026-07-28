@@ -47,34 +47,57 @@ Save
 
 <h3>Your Portfolio</h3>
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
+
+<thead>
 
 <tr>
-<th>Name</th>
-<th>Type</th>
-<th>Qty</th>
-<th>Avg</th>
-<th>Current</th>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Qty</th>
+    <th>Average</th>
+    <th>Current</th>
+    <th>Actions</th>
 </tr>
+
+</thead>
+
+<tbody>
 
 {% for item in portfolio %}
 
 <tr>
 
-<td>{{item.asset_name}}</td>
+    <td>{{ item.asset_name }}</td>
 
-<td>{{item.asset_type}}</td>
+    <td>{{ item.asset_type }}</td>
 
-<td>{{item.quantity}}</td>
+    <td>{{ item.quantity }}</td>
 
-<td>{{item.average_price}}</td>
+    <td>₹ {{ item.average_price }}</td>
 
-<td>{{item.current_price}}</td>
+    <td>₹ {{ item.current_price }}</td>
+
+    <td>
+
+        <a href="/edit/{{ item.id }}"
+           class="btn btn-warning btn-sm">
+            ✏ Edit
+        </a>
+        <a href="/delete/{{ item.id }}"
+           class="btn btn-danger btn-sm"
+           onclick="return confirm('Delete this holding?')">
+            🗑 Delete
+        </a>
+
+    </td>
 
 </tr>
 
+
 {% endfor %}
 
-</table>
+</tbody>
 
+</table>
 {% endblock %}

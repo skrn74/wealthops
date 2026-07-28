@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Edit Holding</h2>
+
+<form method="POST">
+
+<div class="mb-3">
+
+<label>Asset Name</label>
+
+<input
+class="form-control"
+name="asset_name"
+value="{{ holding.asset_name }}">
+
+</div>
+
+<div class="mb-3">
+
+<label>Asset Type</label>
+
+<select
+class="form-control"
+name="asset_type">
+
+<option
+{% if holding.asset_type=="Mutual Fund" %}
+selected
+{% endif %}>
+Mutual Fund
+</option>
+
+<option
+{% if holding.asset_type=="Stock" %}
+selected
+{% endif %}>
+Stock
+</option>
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label>Quantity</label>
+
+<input
+class="form-control"
+name="quantity"
+value="{{ holding.quantity }}">
+
+</div>
+
+<div class="mb-3">
+
+<label>Average Price</label>
+
+<input
+class="form-control"
+name="average_price"
+value="{{ holding.average_price }}">
+
+</div>
+
+<div class="mb-3">
+
+<label>Current Price</label>
+
+<input
+class="form-control"
+name="current_price"
+value="{{ holding.current_price }}">
+
+</div>
+
+<button
+class="btn btn-success">
+
+    Update
+</button>
+
+<a href="/portfolio" class="btn btn-secondary">
+    Cancel
+</a>
+</form>
+{% endblock %}
