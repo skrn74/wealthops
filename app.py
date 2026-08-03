@@ -10,6 +10,9 @@ from models.transaction import Transaction
 from routes.api import api_bp
 from routes.ai import ai_bp
 from routes.upstox import upstox_bp
+import time
+from sqlalchemy.exc import OperationalError
+from models.settings import Settings
 
 app = Flask(__name__)
 app.config.from_object("config")
@@ -18,7 +21,15 @@ db.init_app(app)
 
 with app.app_context():
 
-    db.create_all()
+    for i in range(10):
+        try:
+            db.create_all()
+            print("✅ Database connected and tables created.")
+            break
+        except OperationalError as e:
+            print(f"Attempt {i+1}/10 - Waiting for PostgreSQL...")
+            print(e)
+            time.sleep(2)
 
 app.register_blueprint(dashboard_bp)
 app.register_blueprint(portfolio_bp)

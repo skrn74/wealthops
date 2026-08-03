@@ -1,0 +1,103 @@
+<div class="row g-4 mt-2">
+
+    <!-- Best Performer -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h5 class="text-success">
+
+                    🏆 Best Performer
+
+                </h5>
+
+                {% if best_asset %}
+
+                <h4>
+
+                    {{ best_asset.asset_name }}
+
+                </h4>
+
+                <p>
+
+                    Return
+
+                    <strong>
+
+                        {{ "%.2f"|format(
+                            (
+                                (best_asset.current_price-best_asset.average_price)
+                                /
+                                best_asset.average_price
+                            )*100
+                        ) }}
+
+                        %
+
+                    </strong>
+
+                </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Worst Performer -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h5 class="text-danger">
+
+                    📉 Lowest Performer
+
+                </h5>
+
+                {% if worst_asset %}
+
+                <h4>
+
+                    {{ worst_asset.asset_name }}
+
+                </h4>
+
+                <p>
+
+                    Return
+
+                    <strong>
+
+                        {{ "%.2f"|format(
+                            (
+                                (worst_asset.current_price-worst_asset.average_price)
+                                /
+                                worst_asset.average_price
+                            )*100
+                        ) }}
+
+                        %
+
+                    </strong>
+
+                </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

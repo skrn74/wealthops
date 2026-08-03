@@ -1,0 +1,171 @@
+<div class="row g-4 mb-4">
+
+    <!-- Stocks -->
+
+    <div class="col-lg-6">
+
+        <div class="card border-0 shadow-sm rounded-4">
+
+            <div class="card-body">
+
+                <h5 class="mb-4">
+
+                    📈 Stocks
+
+                </h5>
+
+                <div class="row">
+
+                    <div class="col-4">
+
+                        <small class="text-muted">
+
+                            Investment
+
+                        </small>
+
+                        <h5>
+
+                            ₹ {{ "{:,.0f}".format(stock_investment) }}
+
+                        </h5>
+
+                    </div>
+
+                    <div class="col-4">
+
+                        <small class="text-muted">
+
+                            Current Value
+
+                        </small>
+
+                        <h5>
+
+                            ₹ {{ "{:,.0f}".format(stock_current) }}
+
+                        </h5>
+
+                    </div>
+
+                    <div class="col-4">
+
+                        <small class="text-muted">
+
+                            Gain / Loss
+
+                        </small>
+
+                        {% if stock_gain >=0 %}
+
+                        <h5 class="text-success">
+
+                            ▲ {{ "{:,.0f}".format(stock_gain) }}
+
+                        </h5>
+
+                        {% else %}
+
+                        <h5 class="text-danger">
+
+                            ▼ {{ "{:,.0f}".format(stock_gain|abs) }}
+
+                        </h5>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Mutual Funds -->
+
+    <div class="col-lg-6">
+
+        <div class="card border-0 shadow-sm rounded-4">
+
+            <div class="card-body">
+
+                <h5 class="mb-4">
+
+                    🟢 Mutual Funds
+
+                </h5>
+
+                <div class="row">
+
+                    <div class="col-4">
+
+                        <small class="text-muted">
+
+                            Investment
+
+                        </small>
+
+                        <h5>
+
+                            ₹ {{ "{:,.0f}".format(mf_investment) }}
+
+                        </h5>
+
+                    </div>
+
+                    <div class="col-4">
+
+                        <small class="text-muted">
+
+                            Current Value
+
+                        </small>
+
+                        <h5>
+
+                            ₹ {{ "{:,.0f}".format(mf_current) }}
+
+                        </h5>
+
+                    </div>
+
+                    <div class="col-4">
+
+                        <small class="text-muted">
+
+                            Gain / Loss
+
+                        </small>
+
+                        {% if mf_gain >=0 %}
+
+                        <h5 class="text-success">
+
+                            ▲ {{ "{:,.0f}".format(mf_gain) }}
+
+                        </h5>
+
+                        {% else %}
+
+                        <h5 class="text-danger">
+
+                            ▼ {{ "{:,.0f}".format(mf_gain|abs) }}
+
+                        </h5>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

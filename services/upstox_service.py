@@ -53,3 +53,24 @@ class UpstoxService:
         )
 
         return response.json()
+
+    @staticmethod
+    def get_mutual_funds(access_token):
+
+        print("===== ENTERED get_mutual_funds() =====")
+
+        headers = {
+            "Authorization": f"Bearer {access_token}",
+            "Accept": "application/json"
+        }
+
+        url = "https://api.upstox.com/v2/mf/holdings"
+
+        print("Calling:", url)
+
+        response = requests.get(url, headers=headers)
+
+        print("MF Status:", response.status_code)
+        print("MF Response:", response.text)
+
+        return response.json() 

@@ -14,11 +14,14 @@ def dashboard_api():
     return jsonify({
 
         "total_value": data["total_value"],
-
         "investment": data["investment"],
-
         "gain": data["gain"],
-
-        "holdings": data["holdings"]
+        "stock_current": data["stock_current"],
+        "stock_investment": data["stock_investment"],
+        "stock_gain": data["stock_gain"],
+    
+        "mf_current": data["mf_current"],
+        "mf_investment": data["mf_investment"],
+        "mf_gain": data["mf_gain"],
 
     })

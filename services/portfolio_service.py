@@ -70,12 +70,19 @@ class PortfolioService:
             if portfolio:
 
                 portfolio.asset_name = holding["company_name"]
+
                 portfolio.symbol = holding["trading_symbol"]
+
                 portfolio.quantity = holding["quantity"]
+
                 portfolio.average_price = holding["average_price"]
+
                 portfolio.current_price = holding["last_price"]
+
                 portfolio.market_value = market_value
+
                 portfolio.pnl = holding["pnl"]
+
                 portfolio.source = "Upstox"
 
             else:
@@ -105,5 +112,60 @@ class PortfolioService:
                 )
 
                 db.session.add(portfolio)
+                
 
+        db.session.commit()
+
+    @staticmethod
+    def sync_mutual_funds(funds):
+
+        for fund in funds:
+
+            portfolio = Portfolio.query.filter_by(
+                isin=fund["instrument_key"]
+            ).first()
+
+            market_value = fund["quantity"] * fund["last_price"]
+
+            if portfolio:
+
+                portfolio.asset_name = fund["fund"]
+                portfolio.symbol = fund["folio"]
+                portfolio.isin = fund["instrument_key"]
+                portfolio.asset_type = "Mutual Fund"
+
+                portfolio.quantity = fund["quantity"]
+                portfolio.average_price = fund["average_price"]
+                portfolio.current_price = fund["last_price"]
+                portfolio.market_value = market_value
+                portfolio.pnl = fund["pnl"]
+                portfolio.source = "Upstox"
+
+            else:
+
+                portfolio = Portfolio(
+
+                    asset_name=fund["fund"],
+
+                    symbol=fund["folio"],
+
+                    isin=fund["instrument_key"],
+
+                    asset_type="Mutual Fund",
+
+                    quantity=fund["quantity"],
+
+                    average_price=fund["average_price"],
+
+                    current_price=fund["last_price"],
+
+                    market_value=market_value,
+
+                    pnl=fund["pnl"],
+
+                    source="Upstox"
+
+            )
+
+                db.session.add(portfolio)
         db.session.commit()

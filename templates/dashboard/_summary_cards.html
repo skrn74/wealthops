@@ -1,0 +1,83 @@
+<div class="row g-4 mb-4">
+
+    <!-- Portfolio -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm h-100 rounded-4">
+            <div class="card-body">
+
+                <small class="text-muted">
+                    <i class="bi bi-wallet2 me-2 text-primary"></i>
+                    Total Portfolio
+                </small>
+
+                <h2 class="fw-bold mt-3">
+                    ₹ {{ "{:,.2f}".format(total_value) }}
+                </h2>
+
+                <small class="text-muted">
+                    Current Portfolio Value
+                </small>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Investment -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm h-100 rounded-4">
+            <div class="card-body">
+
+                <small class="text-muted">
+                    <i class="bi bi-cash-stack me-2 text-success"></i>
+                    Total Investment
+                </small>
+
+                <h2 class="fw-bold mt-3">
+                    ₹ {{ "{:,.2f}".format(investment) }}
+                </h2>
+
+                <small class="text-muted">
+                    Total Invested Amount
+                </small>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Gain -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm h-100 rounded-4">
+            <div class="card-body">
+
+                <small class="text-muted">
+                    <i class="bi bi-graph-up-arrow me-2 text-warning"></i>
+                    Overall Gain
+                </small>
+
+                {% if gain >= 0 %}
+
+                <h2 class="fw-bold mt-3 text-success">
+                    ▲ ₹ {{ "{:,.2f}".format(gain) }}
+                </h2>
+
+                <span class="badge bg-success">
+                    {{ gain_percent }} %
+                </span>
+
+                {% else %}
+
+                <h2 class="fw-bold mt-3 text-danger">
+                    ▼ ₹ {{ "{:,.2f}".format(gain|abs) }}
+                </h2>
+
+                <span class="badge bg-danger">
+                    {{ gain_percent }} %
+                </span>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+</div>

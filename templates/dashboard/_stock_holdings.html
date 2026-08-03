@@ -1,0 +1,77 @@
+<div class="card shadow-sm mt-4">
+
+    <div class="card-header bg-white">
+        <h4 class="mb-0">
+            📈 Live Stock Holdings
+        </h4>
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover">
+
+                <thead class="table-light">
+
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Company</th>
+                        <th>Qty</th>
+                        <th>Avg Price</th>
+                        <th>Current</th>
+                        <th>Market Value</th>
+                        <th>P&L</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for stock in stocks %}
+
+                    <tr>
+
+                        <td>{{ stock.symbol }}</td>
+
+                        <td>{{ stock.asset_name }}</td>
+
+                        <td>{{ stock.quantity }}</td>
+
+                        <td>₹ {{ "%.2f"|format(stock.average_price) }}</td>
+
+                        <td>₹ {{ "%.2f"|format(stock.current_price) }}</td>
+
+                        <td>₹ {{ "%.2f"|format(stock.market_value) }}</td>
+
+                        <td>
+
+                            {% if stock.pnl >= 0 %}
+
+                                <span class="text-success fw-bold">
+                                    ▲ ₹ {{ "%.2f"|format(stock.pnl) }}
+                                </span>
+
+                            {% else %}
+
+                                <span class="text-danger fw-bold">
+                                    ▼ ₹ {{ "%.2f"|format(stock.pnl) }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

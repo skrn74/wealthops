@@ -38,3 +38,30 @@ body{
 .navbar{
     box-shadow:0 2px 12px rgba(0,0,0,.1);
 }
+.card{
+
+    transition:0.25s ease;
+
+}
+
+.card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 .75rem 2rem rgba(0,0,0,.15)!important;
+
+}
+
+.rounded-4{
+
+    border-radius:18px;
+
+}
+
+.metric{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+}

@@ -1,5 +1,6 @@
 from models.portfolio import Portfolio
 from models.transaction import Transaction
+from models.settings import Settings
 
 
 class DashboardService:
@@ -8,6 +9,27 @@ class DashboardService:
     def get_dashboard_data():
 
         portfolio = Portfolio.query.all()
+
+        stocks = [p for p in portfolio if p.asset_type == "Stock"]
+        mutual_funds = [p for p in portfolio if p.asset_type == "Mutual Fund"]
+
+        stock_current = sum(p.market_value for p in stocks)
+
+        stock_investment = sum(
+            p.quantity * p.average_price
+        for p in stocks
+        )
+
+        stock_gain = stock_current - stock_investment
+
+        mf_current = sum(p.market_value for p in mutual_funds)
+
+        mf_investment = sum(
+            p.quantity * p.average_price
+            for p in mutual_funds
+        )
+
+        mf_gain = mf_current - mf_investment
 
         top_holdings = sorted(
             portfolio,
@@ -59,13 +81,13 @@ class DashboardService:
         )
 
         mf_value = sum(
-            p.quantity * p.current_price
+            p.market_value
             for p in portfolio
             if p.asset_type == "Mutual Fund"
         )
 
         stock_value = sum(
-            p.quantity * p.current_price
+            p.market_value
             for p in portfolio
             if p.asset_type == "Stock"
         )
@@ -98,6 +120,9 @@ class DashboardService:
             total_value
         ]
 
+        settings = Settings.query.first()
+
+        last_sync = settings.last_sync if settings else None
         return {
             "portfolio": portfolio,
             "holdings": holdings,
@@ -115,4 +140,13 @@ class DashboardService:
             "recent_transactions": recent_transactions,
             "best_asset": best_asset,
             "worst_asset": worst_asset,
+            "last_sync": last_sync,
+            "stock_current": stock_current,
+            "stock_investment": stock_investment,
+            "stock_gain": stock_gain,
+            "stocks": stocks,
+            "mutual_funds": mutual_funds,
+            "mf_current": mf_current,
+            "mf_investment": mf_investment,
+            "mf_gain": mf_gain,
         }

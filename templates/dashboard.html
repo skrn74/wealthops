@@ -2,342 +2,24 @@
 
 {% block content %}
 
-<div>
+{% include "dashboard/_header.html" %}
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+{% include "dashboard/_summary_cards.html" %}
 
-    <h2>Dashboard</h2>
+{% include "dashboard/_asset_cards.html" %}
 
-    <a href="/upstox/login" class="btn btn-success">
-        🔄 Connect Upstox
-    </a>
+{% include "dashboard/_performance_cards.html" %}
 
-</div>
+{% include "dashboard/_charts.html" %}
 
-    <div class="row g-4">
+{% include "dashboard/_top_holdings.html" %}
 
-        <!-- Total Portfolio -->
-        <div class="col-lg-4">
-            <div class="card p-4 shadow-sm">
-                <h5><i class="bi bi-wallet2 text-primary me-2"></i>Total Portfolio</h5>
-                <h2 id="totalValue" class="metric">
-                   ₹ {{ "{:,.2f}".format(total_value) }}
-                </h2> 
-            </div>
-        </div>
-    
-        <div class="col-lg-4">
-            <div class="card p-4 shadow-sm">
-                <h5><i class="bi bi-cash-stack text-success me-2"></i>Investment</h5>
-                <h2 id="investmentValue" class="metric">
-                    ₹ {{ "{:,.2f}".format(investment) }}
-                </h2>
-            </div>
-        </div>
+{% include "dashboard/_recent_transactions.html" %}
 
-        <div class="col-lg-4">
-            <div class="card p-4 shadow-sm">
-                <h5><i class="bi bi-arrow-up-circle-fill text-success me-2"></i>Overall Gain</h5>
+{% include "dashboard/_stock_holdings.html" %}
 
-                {% if gain >= 0 %}
-                <h2 id="gainValue" class="metric text-success">
-                    ₹ {{ "{:,.2f}".format(gain) }}
-                </h2>
-                <small class="text-success">▲ {{ gain_percent }}%</small>
-                {% else %}
-                <h2 id="gainValue" class="metric text-danger">
-                    ₹ {{ "{:,.2f}".format(gain) }}
-                </h2>
-                <small class="text-danger">▼ {{ gain_percent }}%</small>
-                {% endif %}
+{% include "dashboard/_mf_holdings.html" %}
 
-            </div>
-        </div>
-    </div>
-    <div class="row g-4 mt-1">
-        <!-- Mutual Funds -->
-        <div class="col-lg-6">
-            <div class="card p-4 shadow-sm">
-                <h5><i class="bi bi-pie-chart-fill text-info me-2"></i>Mutual Funds</h5>
-                <h2 class="metric">₹ {{ "{:,.2f}".format(mf_value) }}</h2>
-            </div>
-        </div>
-
-        <!-- Stocks -->
-        <div class="col-lg-6">
-            <div class="card p-4 shadow-sm">
-                <h5><i class="bi bi-graph-up-arrow text-warning me-2"></i>Stocks</h5>
-                <h2 class="metric">₹ {{ "{:,.2f}".format(stock_value) }}</h2>
-            </div>
-        </div>
-    </div>
-
-    <div class="row g-4 mt-3">
-
-    <div class="col-lg-6">
-
-        <div class="card shadow-sm">
-
-            <div class="card-body">
-
-                <h5 class="text-success">
-                    🏆 Best Performer
-                </h5>
-
-                {% if best_asset %}
-
-                <h4>{{ best_asset.asset_name }}</h4>
-
-                <p>
-
-                    Return
-
-                    <strong>
-
-                    {{ "%.2f"|format(
-                        (
-                        (best_asset.current_price-best_asset.average_price)
-                        /
-                        best_asset.average_price
-                        )*100
-                    ) }}
-
-                    %
-
-                    </strong>
-
-                </p>
-
-                {% endif %}
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="col-lg-6">
-
-        <div class="card shadow-sm">
-
-            <div class="card-body">
-
-                <h5 class="text-danger">
-
-                    📉 Lowest Performer
-
-                </h5>
-
-                {% if worst_asset %}
-
-                <h4>{{ worst_asset.asset_name }}</h4>
-
-                <p>
-
-                    Return
-
-                    <strong>
-
-                    {{ "%.2f"|format(
-                        (
-                        (worst_asset.current_price-worst_asset.average_price)
-                        /
-                        worst_asset.average_price
-                        )*100
-                    ) }}
-
-                    %
-
-                    </strong>
-
-                </p>
-
-                {% endif %}
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-    <!-- Charts Row -->
-    <div class="row mt-4 g-4">
-
-    <!-- Portfolio Allocation -->
-        <div class="col-lg-6">
-
-            <div class="card chart-card p-4">
-
-                <h4>Portfolio Allocation</h4>
-
-                <div style="position:relative;height:350px;width:100%;">
-
-                    <canvas id="portfolioChart"></canvas>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    <!-- Portfolio Growth -->
-        <div class="col-lg-6">
-
-            <div class="card chart-card p-4">
-
-                <h4>Portfolio Growth</h4>
-
-                <div style="position:relative;height:350px;width:100%;">
-
-                    <canvas id="growthChart"></canvas>
-
-                </div>
-
-            </div>
-
-        </div>
-
-</div>
-
-    <!-- Load JavaScript here -->
-    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
-    <hr class="my-4">
-
-    <div class="row mt-4">
-
-    <!-- Top Holdings -->
-
-    <div class="col-lg-6">
-
-        <div class="card shadow-sm">
-
-            <div class="card-header d-flex justify-content-between align-items-center">
-
-                <h5 class="mb-0">🏆 Top Holdings</h5>
-
-                <a href="/portfolio" class="btn btn-sm btn-primary">
-                    + Add Holding
-                </a>
-
-            </div>
-
-            <div class="card-body">
-
-                <table class="table table-hover">
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Asset</th>
-
-                            <th>Type</th>
-
-                            <th>Current Value</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                    {% for item in top_holdings %}
-
-                    <tr>
-
-                        <td>{{ item.asset_name }}</td>
-
-                        <td>{{ item.asset_type }}</td>
-
-                        <td>
-                            ₹ {{ "{:,.2f}".format(item.quantity * item.current_price) }}
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Recent Transactions -->
-
-    <div class="col-lg-6">
-
-        <div class="card shadow-sm">
-
-            <div class="card-header">
-
-                <h5 class="mb-0">📋 Recent Transactions</h5>
-
-            </div>
-
-            <div class="card-body">
-
-                <table class="table table-hover">
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Asset</th>
-
-                            <th>Type</th>
-
-                            <th>Qty</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                    {% for tx in recent_transactions %}
-
-                    <tr>
-
-                        <td>{{ tx.asset_name }}</td>
-
-                        <td>
-
-                            <span class="badge bg-success">
-
-                                {{ tx.transaction_type }}
-
-                            </span>
-
-                        </td>
-
-                        <td>{{ tx.quantity }}</td>
-
-                    </tr>
-
-                    {% endfor %}
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-    
-
-</div>
 {% endblock %}
 
 {% block scripts %}
@@ -346,78 +28,62 @@
 
 <script>
 
-console.log("Chart Labels:", {{ chart_labels | tojson }});
-console.log("Chart Values:", {{ chart_values | tojson }});
+//
+// Portfolio Pie Chart
+//
 
-const canvas = document.getElementById("portfolioChart");
-
-const portfolioChart = new Chart(canvas, {
-    type: "pie",
-    data: {
-        labels: {{ chart_labels | tojson }},
-        datasets: [{
-            data: {{ chart_values | tojson }},
-            backgroundColor: [
-                "#36A2EB",
-                "#4CAF50"
-            ]
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
+const portfolioChart = new Chart(
+    document.getElementById("portfolioChart"),
+    {
+        type: "pie",
+        data: {
+            labels: {{ chart_labels|tojson }},
+            datasets: [{
+                data: {{ chart_values|tojson }},
+                backgroundColor: [
+                    "#36A2EB",
+                    "#4CAF50"
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
     }
-});
+);
 
-const growthCtx = document.getElementById("growthChart");
+//
+// Growth Chart
+//
 
-const growthChart = new Chart(growthCtx, {
-    type: "line",
-    data: {
-
-        labels: {{ growth_labels | tojson }},
-
-        datasets: [{
-
-            label: "Portfolio Value",
-
-            data: {{ growth_values | tojson }},
-
-            borderColor: "#2E86DE",
-
-            backgroundColor: "#2E86DE",
-
-            tension: 0.3,
-
-            fill: false
-
-        }]
-
-    },
-
-    options: {
-
-        responsive: true,
-
-        maintainAspectRatio: false
-
+const growthChart = new Chart(
+    document.getElementById("growthChart"),
+    {
+        type: "line",
+        data: {
+            labels: {{ growth_labels|tojson }},
+            datasets: [{
+                label: "Portfolio Value",
+                data: {{ growth_values|tojson }},
+                borderColor: "#2E86DE",
+                backgroundColor: "#2E86DE",
+                tension: 0.3,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
     }
-
-});
+);
 
 setTimeout(() => {
     portfolioChart.resize();
     growthChart.resize();
-},100);
-
+}, 100);
 
 </script>
 
-<hr>
-
-<div class="text-center text-muted mb-3">
-WealthOps © 2026
-</div>
-
 {% endblock %}
-
