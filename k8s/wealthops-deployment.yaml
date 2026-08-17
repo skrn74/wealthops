@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: wealthops
+  namespace: wealthops
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: wealthops
+
+  template:
+    metadata:
+      labels:
+        app: wealthops
+
+    spec:
+      containers:
+
+      - name: wealthops
+
+        image: wealthops-wealthops:latest
+
+        imagePullPolicy: Never
+
+        ports:
+        - containerPort: 5000
+
+        env:
+
+        - name: DB_HOST
+          value: postgres
+
+        - name: DB_PORT
+          value: "5432"
+
+        - name: DB_NAME
+          value: wealthops
+
+        - name: DB_USER
+          value: postgres
+
+        - name: DB_PASSWORD
+          value: postgres

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: wealthops
+  namespace: wealthops
+
+spec:
+  selector:
+    app: wealthops
+
+  ports:
+
+  - port: 5000
+    targetPort: 5000
+    nodePort: 30080
+
+  type: NodePort
