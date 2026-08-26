@@ -18,13 +18,15 @@ spec:
         app: wealthops
 
     spec:
+      imagePullSecrets:
+       - name: ecr-secret
       containers:
 
       - name: wealthops
 
-        image: wealthops-wealthops:latest
+        image: 076194732097.dkr.ecr.us-east-1.amazonaws.com/wealthops:latest
 
-        imagePullPolicy: Never
+        imagePullPolicy: Always
 
         ports:
         - containerPort: 5000
