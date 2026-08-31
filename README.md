@@ -135,6 +135,24 @@ PostgreSQL Service
 PostgreSQL Pod
 ```
 
+Database initialization
+At application startup, SQLAlchemy initializes the database and ensures the required tables exist.
+This does not mean the tables are deleted and recreated every time.
+Existing tables remain intact. For a production implementation, database migrations such as Alembic would be preferred for controlled schema changes.
+
+4. Docker Containerization
+The Flask application was containerized using Docker.
+
+The Dockerfile packages:
+---
+Python runtime
+     +
+Application code
+     +
+Python dependencies
+
+---
+
 ---
 # Deployment Steps
 
