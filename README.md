@@ -7,6 +7,7 @@ WealthOps is a Flask-based portfolio management application integrated with Post
 The project was initially developed and tested locally and was then containerized and deployed to a local Kubernetes cluster using Kind.
 
 The deployment architecture currently consists of:
+```
 Developer Machine
        |
        | Docker Build
