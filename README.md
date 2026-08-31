@@ -111,6 +111,7 @@ DB_PORT
 DB_NAME
 DB_USER
 DB_PASSWORD
+
 ---
 
 Inside Kubernetes:
@@ -120,6 +121,7 @@ Inside Kubernetes:
 DB_HOST=postgres
 DB_PORT=5432
 DB_NAME=wealthops
+
 ---
 postgres is the Kubernetes Service name, Therefore, the Flask application does not connect directly to the PostgreSQL Pod IP, instead
 
