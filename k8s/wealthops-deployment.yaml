@@ -47,3 +47,15 @@ spec:
 
         - name: DB_PASSWORD
           value: postgres
+        
+        - name: UPSTOX_CLIENT_ID
+          value: 0d732841-1a7b-4bb2-9f10-1a4ecd5765b3
+        
+        - name: UPSTOX_CLIENT_SECRET
+          value: x2s7rncfkc
+        
+        - name: UPSTOX_REDIRECT_URI
+          value: https://wealthops.local:8443/upstox/callback
+        
+        - name: UPSTOX_BASE_URL
+          value: https://api.upstox.com/v2
