@@ -1,28 +1,43 @@
-# WealthOps - Cloud Native Portfolio Dashboard
+# WealthOps – Kubernetes Deployment & AWS ECR
 
-A cloud-native Flask application deployed on Kubernetes using Docker, Amazon ECR, and PostgreSQL.
+1. Project Overview
 
----
+WealthOps is a Flask-based portfolio management application integrated with PostgreSQL and the Upstox API.
 
-# Architecture
+The project was initially developed and tested locally and was then containerized and deployed to a local Kubernetes cluster using Kind.
 
-```
-Browser
-     │
-     ▼
-NodePort Service
-     │
-     ▼
-Flask Deployment
-     │
-     ▼
-ClusterIP Service
-     │
-     ▼
-PostgreSQL Deployment
-     │
-     ▼
-Persistent Volume Claim
+The deployment architecture currently consists of:
+Developer Machine
+       |
+       | Docker Build
+       v
+Docker Image
+       |
+       | Docker Push
+       v
+AWS ECR
+       |
+       | Image Pull
+       v
+Kind Kubernetes Cluster
+       |
+       +----------------------+
+       |                      |
+       v                      v
+WealthOps Application      PostgreSQL
+       |                      |
+       |                      v
+       |                 Persistent Storage
+       |
+       v
+NGINX Ingress
+       |
+       v
+HTTPS / OAuth
+       |
+       v
+Upstox API
+
 ```
 
 ---
