@@ -125,7 +125,6 @@ Inside Kubernetes:
 ---
 postgres is the Kubernetes Service name, Therefore, the Flask application does not connect directly to the PostgreSQL Pod IP, instead
 ---
-
 WealthOps Pod
       |
       | postgres:5432
