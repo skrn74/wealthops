@@ -1,3 +1,4 @@
+
 WealthOps – Kubernetes Deployment & AWS ECR
 1. Project Overview
 
@@ -38,7 +39,7 @@ HTTPS / OAuth
        v
 Upstox API
 
-
+=======
 ---
 
 # Tech Stack
@@ -97,7 +98,23 @@ wealthops/
 
 ---
 
+3. PostgreSQL Database
 
+PostgreSQL is used as the application's relational database.
+
+The application connects using environment variables:
+
+DB_HOST
+DB_PORT
+DB_NAME
+DB_USER
+DB_PASSWORD
+
+Inside Kubernetes:
+
+DB_HOST=postgres
+DB_PORT=5432
+DB_NAME=wealthops
 
 # Deployment Steps
 
