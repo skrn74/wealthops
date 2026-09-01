@@ -108,6 +108,53 @@ Upstox API
                            v
                      postgres-pvc
 ```
+```
+
+                         Browser
+                            |
+                            |
+                  https://wealthops.local
+                            |
+                            v
+                     127.0.0.1:8443
+                            |
+                     kubectl port-forward
+                            |
+                            v
+              +-----------------------------+
+              | NGINX Ingress Controller    |
+              | namespace: ingress-nginx    |
+              | port: 443                   |
+              +-----------------------------+
+                            |
+                            |
+                    wealthops-ingress
+                    namespace: wealthops
+                            |
+                            v
+              +-----------------------------+
+              | wealthops Service           |
+              | ClusterIP                   |
+              | port: 5000                  |
+              +-----------------------------+
+                            |
+                            v
+              +-----------------------------+
+              | WealthOps Pod               |
+              | Flask :5000                 |
+              +-----------------------------+
+                       /           \
+                      /             \
+                     v               v
+          PostgreSQL Service       Upstox API
+               :5432
+                  |
+                  v
+           PostgreSQL Pod
+                  |
+                  v
+          Persistent Storage
+```
 
 ---
 
