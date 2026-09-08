@@ -235,6 +235,21 @@ The Dockerfile packages the Python runtime, application code, and dependencies.
 docker build -t wealthops-wealthops:latest .
 ```
 
+**Tag it for ECR:**
+```bash
+docker tag wealthops:latest 076194732097.dkr.ecr.us-east-1.amazonaws.com/wealthops:latest
+```
+
+**Login to ECR:**
+```bash
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 076194732097.dkr.ecr.us-east-1.amazonaws.com
+```
+
+**Push:**
+```bash
+docker push 076194732097.dkr.ecr.us-east-1.amazonaws.com/wealthops:latest
+```
+
 **Verify:**
 ```bash
 docker images
