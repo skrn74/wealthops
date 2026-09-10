@@ -10,7 +10,7 @@
                     Total Portfolio
                 </small>
 
-                <h2 class="fw-bold mt-3">
+                <h2 class="fw-bold mt-3 financial-value">
                     ₹ {{ "{:,.2f}".format(total_value) }}
                 </h2>
 
@@ -32,7 +32,7 @@
                     Total Investment
                 </small>
 
-                <h2 class="fw-bold mt-3">
+                <h2 class="fw-bold mt-3 financial-value">
                     ₹ {{ "{:,.2f}".format(investment) }}
                 </h2>
 
@@ -56,21 +56,21 @@
 
                 {% if gain >= 0 %}
 
-                <h2 class="fw-bold mt-3 text-success">
+                <h2 class="fw-bold mt-3 text-success financial-value">
                     ▲ ₹ {{ "{:,.2f}".format(gain) }}
                 </h2>
 
-                <span class="badge bg-success">
+                <span class="badge bg-success financial-value">
                     {{ gain_percent }} %
                 </span>
 
                 {% else %}
 
-                <h2 class="fw-bold mt-3 text-danger">
+                <h2 class="fw-bold mt-3 text-danger financial-value">
                     ▼ ₹ {{ "{:,.2f}".format(gain|abs) }}
                 </h2>
 
-                <span class="badge bg-danger">
+                <span class="badge bg-danger financial-value">
                     {{ gain_percent }} %
                 </span>
 

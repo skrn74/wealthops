@@ -1,0 +1,15 @@
+﻿apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Secrets are applied separately and are NOT part of this kustomization:
+#   kubectl apply -f k8s/secret.local.yaml   (see k8s/secret.yaml for the template)
+
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - postgres/pvc.yaml
+  - postgres/service.yaml
+  - postgres/deployment.yaml
+  - wealthops-service.yaml
+  - wealthops-ingress.yaml
+  - wealthops-deployment.yaml

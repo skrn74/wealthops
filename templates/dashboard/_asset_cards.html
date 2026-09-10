@@ -24,7 +24,7 @@
 
                         </small>
 
-                        <h5>
+                        <h5 class="financial-value">
 
                             ₹ {{ "{:,.0f}".format(stock_investment) }}
 
@@ -40,7 +40,7 @@
 
                         </small>
 
-                        <h5>
+                        <h5 class="financial-value">
 
                             ₹ {{ "{:,.0f}".format(stock_current) }}
 
@@ -56,9 +56,9 @@
 
                         </small>
 
-                        {% if stock_gain >=0 %}
+                        {% if stock_gain >= 0 %}
 
-                        <h5 class="text-success">
+                        <h5 class="text-success financial-value">
 
                             ▲ {{ "{:,.0f}".format(stock_gain) }}
 
@@ -66,7 +66,7 @@
 
                         {% else %}
 
-                        <h5 class="text-danger">
+                        <h5 class="text-danger financial-value">
 
                             ▼ {{ "{:,.0f}".format(stock_gain|abs) }}
 
@@ -83,6 +83,7 @@
         </div>
 
     </div>
+
 
     <!-- Mutual Funds -->
 
@@ -108,7 +109,7 @@
 
                         </small>
 
-                        <h5>
+                        <h5 class="financial-value">
 
                             ₹ {{ "{:,.0f}".format(mf_investment) }}
 
@@ -124,7 +125,7 @@
 
                         </small>
 
-                        <h5>
+                        <h5 class="financial-value">
 
                             ₹ {{ "{:,.0f}".format(mf_current) }}
 
@@ -140,9 +141,9 @@
 
                         </small>
 
-                        {% if mf_gain >=0 %}
+                        {% if mf_gain >= 0 %}
 
-                        <h5 class="text-success">
+                        <h5 class="text-success financial-value">
 
                             ▲ {{ "{:,.0f}".format(mf_gain) }}
 
@@ -150,7 +151,7 @@
 
                         {% else %}
 
-                        <h5 class="text-danger">
+                        <h5 class="text-danger financial-value">
 
                             ▼ {{ "{:,.0f}".format(mf_gain|abs) }}
 

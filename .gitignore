@@ -1,4 +1,9 @@
 .env
+k8s/secret.local.yaml
+k8s/secret.yaml
 __pycache__/
 *.pyc
 instance/
+eksctl.exe
+eksctl
+kubectl

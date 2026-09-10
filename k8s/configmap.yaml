@@ -1,0 +1,13 @@
+﻿apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: wealthops-config
+  namespace: wealthops
+
+data:
+  DB_HOST: "postgres"
+  DB_PORT: "5432"
+  DB_NAME: "wealthops"
+  UPSTOX_REDIRECT_URI: "https://wealthops.local:8443/upstox/callback"
+  UPSTOX_BASE_URL: "https://api.upstox.com/v2"

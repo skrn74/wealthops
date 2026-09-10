@@ -29,3 +29,42 @@ updateDashboard();
 
 // Refresh every 5 seconds
 setInterval(updateDashboard, 5000);
+
+// Portfolio Privacy Mode
+document.addEventListener("DOMContentLoaded", function () {
+
+    const toggle = document.getElementById("privacyToggle");
+
+    if (!toggle) return;
+
+    const values = document.querySelectorAll(".financial-value");
+
+    let hidden = localStorage.getItem("wealthopsPrivacy") === "true";
+
+    function updatePrivacyMode() {
+
+        values.forEach(value => {
+            value.style.filter = hidden ? "blur(8px)" : "none";
+        });
+
+        toggle.textContent = hidden ? "🙈" : "👁️";
+
+        toggle.title = hidden
+            ? "Show portfolio values"
+            : "Hide portfolio values";
+    }
+
+    toggle.addEventListener("click", function () {
+
+        hidden = !hidden;
+
+        localStorage.setItem(
+            "wealthopsPrivacy",
+            hidden
+        );
+
+        updatePrivacyMode();
+    });
+
+    updatePrivacyMode();
+});
