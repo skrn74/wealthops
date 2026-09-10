@@ -11,5 +11,5 @@ resources:
   - postgres/service.yaml
   - postgres/deployment.yaml
   - wealthops-service.yaml
-  - wealthops-ingress.yaml
+  - wealthops-alb-ingress.yml
   - wealthops-deployment.yaml
